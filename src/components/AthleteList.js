@@ -2,14 +2,22 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import API_CONNECTION from "../dbConfig";
+
 const AthleteList = () => {
   const [athleteList, setAthleteList] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios
-      .get("https://open-sponsorship-api.onrender.com/athletes")
-      .then((res) => setAthleteList(res.data));
+      .get(`${API_CONNECTION}/athletes`)
+      .then((res) => setAthleteList(res.data))
+      .catch((err) => setError(err));
   }, []);
+
+  if (error) {
+    return <p>Error fetching athletes</p>;
+  }
 
   if (!athleteList) {
     return <p>Loading...</p>;

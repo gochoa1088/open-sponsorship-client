@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import API_CONNECTION from "../dbConfig";
 import AthleteInfo from "./AthleteInfo";
 
 const AthleteSummary = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!state) {
@@ -15,10 +19,11 @@ const AthleteSummary = () => {
 
   const onSubmitForm = () => {
     axios
-      .post("https://open-sponsorship-api.onrender.com/athletes/add", state)
+      .post(`${API_CONNECTION}/athletes/add`, state)
       .then((res) =>
         navigate(`/athletes/${res.data.id}`, { state: { id: res.data.id } })
-      );
+      )
+      .catch((err) => setError(err));
   };
 
   const onPrevious = () => {
@@ -26,6 +31,10 @@ const AthleteSummary = () => {
       state,
     });
   };
+
+  if (error) {
+    return <p>Error adding athlete</p>;
+  }
 
   return (
     <div>
