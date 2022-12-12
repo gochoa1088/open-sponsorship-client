@@ -10,7 +10,7 @@ const AthleteProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/athletes/${params.id}`)
+      .get(`https://open-sponsorship-api.onrender.com/athletes/${params.id}`)
       .then((res) => setProfile(res.data));
   }, []);
 

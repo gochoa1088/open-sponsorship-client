@@ -7,7 +7,7 @@ const AthleteList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/athletes")
+      .get("https://open-sponsorship-api.onrender.com/athletes")
       .then((res) => setAthleteList(res.data));
   }, []);
 

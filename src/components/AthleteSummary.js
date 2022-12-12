@@ -15,7 +15,7 @@ const AthleteSummary = () => {
 
   const onSubmitForm = () => {
     axios
-      .post("http://localhost:5000/athletes/add", state)
+      .post("https://open-sponsorship-api.onrender.com/athletes/add", state)
       .then((res) =>
         navigate(`/athletes/${res.data.id}`, { state: { id: res.data.id } })
       );
